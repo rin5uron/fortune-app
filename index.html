@@ -111,6 +111,15 @@
             white-space: pre-line;
         }
 
+        .fortune-image {
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+
+        .fortune-image.loaded {
+            opacity: 1;
+        }
+
         .button {
             background: #888;
             color: white;
@@ -294,8 +303,25 @@
         // LIFF ID（ここにあなたのLIFF IDを設定してください）
         const LIFF_ID = '2008804421-qXBqLT62';
 
+        // 画像をプリロード
+        function preloadImages() {
+            const images = [
+                'images/main.png',
+                'images/01.png', 'images/02.png', 'images/03.png', 'images/04.png', 'images/05.png',
+                'images/06.png', 'images/07.png', 'images/08.png', 'images/09.png', 'images/10.png'
+            ];
+
+            images.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        }
+
         // LIFF初期化
         window.addEventListener('DOMContentLoaded', () => {
+            // 画像を事前読み込み
+            preloadImages();
+
             liff.init({
                 liffId: LIFF_ID
             }).then(() => {
@@ -429,6 +455,16 @@
                 </div>
             `;
 
+            // 画像読み込み完了後にフェードイン
+            const fortuneImg = contentBox.querySelector('.fortune-image');
+            fortuneImg.onload = () => {
+                fortuneImg.classList.add('loaded');
+            };
+            // すでにキャッシュされている場合
+            if (fortuneImg.complete) {
+                fortuneImg.classList.add('loaded');
+            }
+
             button.disabled = false;
             isDrawing = false;
 
@@ -443,6 +479,12 @@
                 return;
             }
 
+            // sendMessagesが使えるか確認
+            if (!liff.isInClient()) {
+                alert('この機能はLINEアプリ内でのみ利用できます');
+                return;
+            }
+
             liff.sendMessages([
                 {
                     type: 'text',
@@ -452,8 +494,14 @@
                 alert('公式アカウントに送信しました！');
                 console.log('共有完了');
             }).catch((error) => {
-                console.error('共有エラー', error);
-                alert('共有に失敗しました');
+                console.error('共有エラー詳細:', error);
+                let errorMsg = '共有に失敗しました';
+                if (error.code === 'UNAUTHORIZED') {
+                    errorMsg = 'アプリの権限が不足しています。LIFF設定を確認してください。';
+                } else if (error.message) {
+                    errorMsg = `エラー: ${error.message}`;
+                }
+                alert(errorMsg);
             });
         }
     </script>
