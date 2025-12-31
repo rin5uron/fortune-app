@@ -16,6 +16,82 @@
 - GitHub: `https://github.com/rin5uron/fortune-app`
 - ホスティング: Vercel
 
+**アプリの開き方（重要）**
+```
+✅ 正しい: https://liff.line.me/2008804421-qXBqLT62
+❌ 間違い: https://fortune-app-jet.vercel.app/
+```
+
+---
+
+## トラブルシューティング（2025/12/31）
+
+### 問題：「LINEアプリ内でのみ利用できます」エラー
+
+**症状**
+- LINEアプリ内ブラウザで開いているのに「この機能はLINEアプリ内でのみ利用できます」というエラーが出る
+- 共有ボタンを押すと権限エラーになる
+- コンソールで `isInClient: false` と表示される
+
+**原因**
+Vercel URL（`https://fortune-app-jet.vercel.app/`）を直接開いている
+
+**なぜダメなのか？**
+- LINEアプリ内ブラウザで開いても、LIFF URLを経由しないとLIFFとして認証されない
+- `liff.sendMessages()` は LIFF として認証された状態でないと動作しない
+- Vercel URLは単なる静的サイトのURLであり、LIFF機能は使えない
+
+**解決方法**
+必ず **LIFF URL** で開く：
+```
+https://liff.line.me/2008804421-qXBqLT62
+```
+
+**仕組み**
+```
+ユーザーがLIFF URLにアクセス
+  ↓
+LINEがLIFFとして認証
+  ↓
+内部でVercel URLにリダイレクト
+  ↓
+LIFF機能が使える状態になる ✅
+```
+
+**配布方法**
+1. メッセージで送る場合
+   ```
+   今年の運勢を占おう！
+   https://liff.line.me/2008804421-qXBqLT62
+   ```
+
+2. QRコードを作る場合
+   - URL: `https://liff.line.me/2008804421-qXBqLT62`
+
+3. リッチメニューに設定する場合
+   - LINE公式アカウント管理画面 → リッチメニュー
+   - アクション → リンク
+   - URL: `https://liff.line.me/2008804421-qXBqLT62`
+
+**デバッグ方法**
+コンソールで以下を確認：
+```javascript
+console.log('isLoggedIn:', liff.isLoggedIn());
+console.log('isInClient:', liff.isInClient());
+console.log('現在のURL:', window.location.href);
+```
+
+期待される結果：
+```
+isLoggedIn: true
+isInClient: true
+現在のURL: https://fortune-app-jet.vercel.app/
+```
+
+**参考**
+- 同様の問題が love-counter プロジェクトでも発生（2025/12/25）
+- 詳細は `/Users/rin5uron/Desktop/personal/counterapp-collection/love-counter/docs/learning-notes.md` の「2025/12/25 - LIFF URLとVercel URLの違い」を参照
+
 ---
 
 ## 画面構成
