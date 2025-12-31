@@ -474,6 +474,12 @@
 
         // LINE共有機能（公式アカウントのトークに送信）
         function shareToLine() {
+            // デバッグ情報を出力
+            console.log('LIFF状態:');
+            console.log('- isLoggedIn:', liff.isLoggedIn());
+            console.log('- isInClient:', liff.isInClient());
+            console.log('- 現在のURL:', window.location.href);
+
             if (!liff.isLoggedIn()) {
                 liff.login();
                 return;
@@ -481,7 +487,7 @@
 
             // sendMessagesが使えるか確認
             if (!liff.isInClient()) {
-                alert('この機能はLINEアプリ内でのみ利用できます');
+                alert('この機能はLINEアプリ内でのみ利用できます\n\n【デバッグ情報】\nLIFF URLで開いてください:\nhttps://liff.line.me/2008804421-qXBqLT62');
                 return;
             }
 
