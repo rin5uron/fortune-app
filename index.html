@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今年の運勢</title>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            background: #F5F5F0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #666;
+            margin-bottom: 40px;
+            font-weight: normal;
+        }
+
+        .content-box {
+            background: #FAFAF8;
+            padding: 60px 40px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .initial-view {
+            width: 100%;
+            text-align: center;
+        }
+
+        .happy-new-year {
+            font-size: 2.5em;
+            color: #888;
+            margin-bottom: 30px;
+            font-weight: normal;
+            letter-spacing: 0.1em;
+        }
+
+        .main-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .gacha-text {
+            font-size: 1.5em;
+            color: #888;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fortune-card {
+            width: 100%;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fortune-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin: 0 auto 30px;
+            display: block;
+        }
+
+        .fortune-text {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 2;
+            white-space: pre-line;
+        }
+
+        .button {
+            background: #888;
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 40px;
+        }
+
+        .button:hover {
+            background: #666;
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .share-button {
+            background: #06C755;
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .share-button:hover {
+            background: #05A846;
+        }
+
+        .share-button.visible {
+            display: block;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 25px;
+            }
+
+            .content-box {
+                padding: 30px 20px;
+                min-height: 300px;
+            }
+
+            .happy-new-year {
+                font-size: 1.5em;
+                margin-bottom: 20px;
+            }
+
+            .main-image {
+                max-width: 300px;
+            }
+
+            .gacha-text {
+                font-size: 1.2em;
+            }
+
+            .fortune-image {
+                max-width: 280px;
+            }
+
+            .fortune-text {
+                font-size: 0.95em;
+                line-height: 1.8;
+            }
+
+            .button {
+                padding: 15px 35px;
+                font-size: 1em;
+                margin-top: 25px;
+            }
+
+            .share-button {
+                padding: 15px 35px;
+                font-size: 1em;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 1.3em;
+                margin-bottom: 20px;
+            }
+
+            .content-box {
+                padding: 25px 15px;
+                min-height: 250px;
+            }
+
+            .happy-new-year {
+                font-size: 1.2em;
+                margin-bottom: 15px;
+            }
+
+            .main-image {
+                max-width: 250px;
+            }
+
+            .fortune-image {
+                max-width: 240px;
+            }
+
+            .fortune-text {
+                font-size: 0.9em;
+            }
+
+            .button {
+                padding: 12px 30px;
+                font-size: 0.95em;
+            }
+
+            .share-button {
+                padding: 12px 30px;
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="content-box" id="contentBox">
+            <div class="initial-view">
+                <div class="happy-new-year">HAPPY NEW YEAR</div>
+                <img src="images/kotone_newyear.png" alt="琴音ちゃんと富士山" class="main-image">
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button class="button" id="drawButton" onclick="startGacha()">今年の運勢を占う</button>
+            <button class="share-button" id="shareButton" onclick="shareToLine()">LINEで共有</button>
+        </div>
+    </div>
+
+    <script>
+        // LIFF ID（ここにあなたのLIFF IDを設定してください）
+        const LIFF_ID = 'YOUR_LIFF_ID_HERE';
+
+        // LIFF初期化
+        window.addEventListener('DOMContentLoaded', () => {
+            liff.init({
+                liffId: LIFF_ID
+            }).then(() => {
+                console.log('LIFF initialized');
+            }).catch((err) => {
+                console.error('LIFF initialization failed', err);
+            });
+        });
+
+        const fortunes = [
+            {
+                text: `今年はアイスをたくさん食べられるでしょう。
+春夏秋冬、たくさんアイスを食べてね。
+食べたアイスは、私にも報告してね。`
+            },
+            {
+                text: `今年のラッキー果物はリンゴです。
+赤いのも青いのも、いろんなリンゴを
+気分で選んで食べてみると良いかもね。`
+            },
+            {
+                text: `今年は、早く寝られる日が
+意外と多そうです。
+「早く寝ようクーポン」もあるから、
+このアプリのクーポン、使ってね。`
+            },
+            {
+                text: `今年はコンビニで
+お気に入りの商品に
+たくさん出会えるでしょう。
+見つけたら、私にも報告してね。`
+            },
+            {
+                text: `今年は、どうでもいいことで
+笑うことがたくさんありそう。
+その笑い、大事にしてね。`
+            },
+            {
+                text: `今年は、ちょっと寄り道した先で
+思いがけず楽しい時間が
+見つかりそうです。`
+            },
+            {
+                text: `今年は、気づいたら
+何かを食べている時間が
+増えそうです。
+おいしいものにたくさん出会えるといいね。
+気に入ったものがあったら、私にも教えてね。`
+            },
+            {
+                text: `今年は、天気を考えないで外に出て
+ちょっと後悔する日が
+ありそうです。
+天気予報を見ると、
+物事がスムーズにいく日かもね。`
+            },
+            {
+                text: `今年は、理由はよく分からないけど
+なんとなく機嫌よく
+過ごせる日が増えそうです。`
+            },
+            {
+                text: `今年は、何気なく選んだものが
+あとから「これでよかったな」って
+思えることがありそうです。`
+            }
+        ];
+
+        const gachaTexts = [
+            'ガチャ中…',
+            '運勢選択中…',
+            'そろそろ出ます…'
+        ];
+
+        let isDrawing = false;
+        let currentFortuneText = '';
+
+        function startGacha() {
+            if (isDrawing) return;
+
+            isDrawing = true;
+            const button = document.getElementById('drawButton');
+            const contentBox = document.getElementById('contentBox');
+
+            button.disabled = true;
+
+            let currentTextIndex = 0;
+
+            function showNextGachaText() {
+                if (currentTextIndex < gachaTexts.length) {
+                    contentBox.innerHTML = `<div class="gacha-text">${gachaTexts[currentTextIndex]}</div>`;
+                    currentTextIndex++;
+                    setTimeout(showNextGachaText, 800);
+                } else {
+                    showFortune();
+                }
+            }
+
+            showNextGachaText();
+        }
+
+        function showFortune() {
+            const contentBox = document.getElementById('contentBox');
+            const button = document.getElementById('drawButton');
+            const shareButton = document.getElementById('shareButton');
+
+            // ランダムに運勢を選択
+            const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+            currentFortuneText = randomFortune.text;
+
+            contentBox.innerHTML = `
+                <div class="fortune-card">
+                    <img src="images/kotone_newyear.png" alt="琴音ちゃん" class="fortune-image">
+                    <div class="fortune-text">${randomFortune.text}</div>
+                </div>
+            `;
+
+            button.disabled = false;
+            isDrawing = false;
+
+            // 共有ボタンを表示
+            shareButton.classList.add('visible');
+        }
+
+        // LINE共有機能
+        function shareToLine() {
+            if (!liff.isLoggedIn()) {
+                liff.login();
+                return;
+            }
+
+            if (!liff.isApiAvailable('shareTargetPicker')) {
+                alert('この機能はLINEアプリでのみ利用できます');
+                return;
+            }
+
+            liff.shareTargetPicker([
+                {
+                    type: 'text',
+                    text: `【今年の運勢】\n\n${currentFortuneText}`
+                }
+            ]).then(() => {
+                console.log('共有完了');
+            }).catch((error) => {
+                console.error('共有エラー', error);
+                if (error.code !== 'CANCEL') {
+                    alert('共有に失敗しました');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
