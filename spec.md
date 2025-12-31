@@ -4,6 +4,18 @@
 公式LINE内で遊べる「今年の運勢」ガチャ。
 占い要素はほぼなく、軽くてどうでもいい内容を楽しむための機能。
 
+## 技術情報
+
+**LIFF設定**
+- LIFF ID: `2008804421-qXBqLT62`
+- エンドポイントURL: `https://fortune-app-jet.vercel.app/`
+- サイズ: Full
+- Scope: `profile`, `openid`, `chat_message.write`
+
+**リポジトリ**
+- GitHub: `https://github.com/rin5uron/fortune-app`
+- ホスティング: Vercel
+
 ---
 
 ## 画面構成

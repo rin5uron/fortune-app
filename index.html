@@ -258,7 +258,7 @@
         <div class="content-box" id="contentBox">
             <div class="initial-view">
                 <div class="happy-new-year">HAPPY NEW YEAR</div>
-                <img src="images/kotone_newyear.png" alt="琴音ちゃんと富士山" class="main-image">
+                <img src="images/main.png" alt="琴音ちゃんと富士山" class="main-image">
             </div>
         </div>
 
@@ -270,7 +270,7 @@
 
     <script>
         // LIFF ID（ここにあなたのLIFF IDを設定してください）
-        const LIFF_ID = 'Ua8360d55d67f933a6e6bee1d8bc1e277';
+        const LIFF_ID = '2008804421-qXBqLT62';
 
         // LIFF初期化
         window.addEventListener('DOMContentLoaded', () => {
@@ -285,38 +285,45 @@
 
         const fortunes = [
             {
+                image: 'images/01.png',
                 text: `今年はアイスをたくさん食べられるでしょう。
 春夏秋冬、たくさんアイスを食べてね。
 食べたアイスは、私にも報告してね。`
             },
             {
+                image: 'images/02.png',
                 text: `今年のラッキー果物はリンゴです。
 赤いのも青いのも、いろんなリンゴを
 気分で選んで食べてみると良いかもね。`
             },
             {
+                image: 'images/03.png',
                 text: `今年は、早く寝られる日が
 意外と多そうです。
 「早く寝ようクーポン」もあるから、
 このアプリのクーポン、使ってね。`
             },
             {
+                image: 'images/04.png',
                 text: `今年はコンビニで
 お気に入りの商品に
 たくさん出会えるでしょう。
 見つけたら、私にも報告してね。`
             },
             {
+                image: 'images/05.png',
                 text: `今年は、どうでもいいことで
 笑うことがたくさんありそう。
 その笑い、大事にしてね。`
             },
             {
+                image: 'images/06.png',
                 text: `今年は、ちょっと寄り道した先で
 思いがけず楽しい時間が
 見つかりそうです。`
             },
             {
+                image: 'images/07.png',
                 text: `今年は、気づいたら
 何かを食べている時間が
 増えそうです。
@@ -324,6 +331,7 @@
 気に入ったものがあったら、私にも教えてね。`
             },
             {
+                image: 'images/08.png',
                 text: `今年は、天気を考えないで外に出て
 ちょっと後悔する日が
 ありそうです。
@@ -331,11 +339,13 @@
 物事がスムーズにいく日かもね。`
             },
             {
+                image: 'images/09.png',
                 text: `今年は、理由はよく分からないけど
 なんとなく機嫌よく
 過ごせる日が増えそうです。`
             },
             {
+                image: 'images/10.png',
                 text: `今年は、何気なく選んだものが
 あとから「これでよかったな」って
 思えることがありそうです。`
@@ -386,7 +396,7 @@
 
             contentBox.innerHTML = `
                 <div class="fortune-card">
-                    <img src="images/kotone_newyear.png" alt="琴音ちゃん" class="fortune-image">
+                    <img src="${randomFortune.image}" alt="琴音ちゃん" class="fortune-image">
                     <div class="fortune-text">${randomFortune.text}</div>
                 </div>
             `;
