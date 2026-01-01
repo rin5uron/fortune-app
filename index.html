@@ -432,8 +432,8 @@
                 title: '機嫌よく過ごせそう',
                 image: 'images/09.jpg',
                 text: `【機嫌よく過ごせそう】
-今年は、なんとなく
-機嫌よく過ごせる日が増えそう。`
+今年は、楽しい気分で
+過ごせる日が増えそう！`
             },
             {
                 title: '選んだものが正解になる',
@@ -503,9 +503,11 @@
 
             isDrawing = true;
             const button = document.getElementById('drawButton');
+            const shareButton = document.getElementById('shareButton');
             const contentBox = document.getElementById('contentBox');
 
             button.disabled = true;
+            shareButton.classList.remove('visible');
 
             let currentTextIndex = 0;
 
