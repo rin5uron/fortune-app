@@ -191,28 +191,34 @@
             gap: 15px;
         }
 
+        @media (max-width: 600px) {
+            .button-container {
+                margin-top: -5px;
+            }
+        }
+
         .hidden {
             display: none;
         }
 
         @media (max-width: 600px) {
             body {
-                padding: 10px;
+                padding: 5px 10px;
             }
 
             h1 {
                 font-size: 1.5em;
-                margin-bottom: 20px;
+                margin-bottom: 15px;
             }
 
             .content-box {
-                padding: 35px 20px;
+                padding: 25px 20px 35px;
                 min-height: 280px;
             }
 
             .happy-new-year {
                 font-size: 1.5em;
-                margin-bottom: 15px;
+                margin-bottom: 10px;
             }
 
             .main-image {
@@ -578,6 +584,29 @@
                 return;
             }
 
+            // 友達登録状態を確認
+            liff.getFriendship().then(data => {
+                if (data.friendFlag) {
+                    // 友達登録済み → メッセージ送信
+                    sendMessageToOfficial();
+                } else {
+                    // 未登録 → 友達登録ページへ誘導
+                    if (confirm('公式アカウントに送信するには、友達登録が必要です。\n\n友達登録ページを開きますか？')) {
+                        liff.openWindow({
+                            url: 'https://line.me/R/ti/p/@676nejhh',
+                            external: false
+                        });
+                    }
+                }
+            }).catch(err => {
+                console.error('Friendship check error:', err);
+                // エラー時は従来通りメッセージ送信を試みる
+                sendMessageToOfficial();
+            });
+        }
+
+        // メッセージ送信関数
+        function sendMessageToOfficial() {
             liff.sendMessages([
                 {
                     type: 'text',
