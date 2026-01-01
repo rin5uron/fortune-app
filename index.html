@@ -105,7 +105,7 @@
         }
 
         .fortune-text {
-            font-size: 1.1em;
+            font-size: 1.3em;
             color: #666;
             line-height: 2;
             white-space: pre-line;
@@ -213,8 +213,8 @@
             }
 
             .fortune-text {
-                font-size: 0.95em;
-                line-height: 1.8;
+                font-size: 1.2em;
+                line-height: 1.9;
             }
 
             .button {
@@ -260,7 +260,7 @@
             }
 
             .fortune-text {
-                font-size: 0.9em;
+                font-size: 1.1em;
             }
 
             .button {
@@ -286,7 +286,7 @@
         <div class="content-box" id="contentBox">
             <div class="initial-view">
                 <div class="happy-new-year">HAPPY NEW YEAR</div>
-                <img src="images/main.png" alt="琴音ちゃんと富士山" class="main-image">
+                <img src="images/main.jpg" alt="琴音ちゃんと富士山" class="main-image">
             </div>
         </div>
 
@@ -306,9 +306,9 @@
         // 画像をプリロード
         function preloadImages() {
             const images = [
-                'images/main.png',
-                'images/01.png', 'images/02.png', 'images/03.png', 'images/04.png', 'images/05.png',
-                'images/06.png', 'images/07.png', 'images/08.png', 'images/09.png', 'images/10.png'
+                'images/main.jpg',
+                'images/01.jpg', 'images/02.jpg', 'images/03.jpg', 'images/04.jpg', 'images/05.jpg',
+                'images/06.jpg', 'images/07.jpg', 'images/08.jpg', 'images/09.jpg', 'images/10.jpg'
             ];
 
             images.forEach(src => {
@@ -334,26 +334,26 @@
         const fortunes = [
             {
                 title: 'たくさんのアイスに出会えるでしょう',
-                image: 'images/01.png',
+                image: 'images/01.jpg',
                 text: `【たくさんのアイスに出会えるでしょう】
 今年は春夏秋冬、たくさんアイスが食べられるでしょう。
 お気に入りアイスを見つけたら、私にも教えてね〜！`
             },
             {
                 title: '今年のラッキー果物はりんごです',
-                image: 'images/02.png',
+                image: 'images/02.jpg',
                 text: `【今年のラッキー果物はりんごです】
 色も形もいろんなりんごを選んで食べてみると良いことあるかも。りんごのお菓子やお料理もオススメだよ🍎✨`
             },
             {
                 title: '早く寝ると良いことありそう',
-                image: 'images/03.png',
+                image: 'images/03.jpg',
                 text: `【早く寝ると良いことありそう】
 このアプリに「早く寝ようクーポン」もあるからたくさん使ってね！`
             },
             {
                 title: 'コンビニでお気に入りの商品に出会える',
-                image: 'images/04.png',
+                image: 'images/04.jpg',
                 text: `【コンビニでお気に入りの商品に出会える】
 今年はコンビニにでお気に入りの商品に
 たくさん出会えるでしょう。
@@ -361,21 +361,21 @@
             },
             {
                 title: 'どうでもいいことで笑うことがたくさんありそう',
-                image: 'images/05.png',
+                image: 'images/05.jpg',
                 text: `【どうでもいいことで
 笑うことがたくさんありそう】
 その笑い、大事にしてね。`
             },
             {
                 title: '寄り道した先で楽しい時間が見つかる',
-                image: 'images/06.png',
+                image: 'images/06.jpg',
                 text: `【寄り道した先で楽しい時間が見つかる】今年は、ちょっと寄り道した先で
 思いがけず楽しい時間が
 見つかりそうです。`
             },
             {
                 title: '何かを食べている時間が増える',
-                image: 'images/07.png',
+                image: 'images/07.jpg',
                 text: `【何かを食べている時間が増える】
 今年は、気づいたら何かを食べている時間が増えそう。
 おいしいものにたくさう出会えるといいね。
@@ -383,7 +383,7 @@
             },
             {
                 title: '天気予報を意識すると運勢UP',
-                image: 'images/08.png',
+                image: 'images/08.jpg',
                 text: `【天気予報を意識すると運勢UP】
 今年は、天気を考えないで外に出て
 ちょっと後悔する日がありそう。
@@ -391,14 +391,14 @@
             },
             {
                 title: '機嫌よく過ごせる日が多そう',
-                image: 'images/09.png',
+                image: 'images/09.jpg',
                 text: `【機嫌よく過ごせる日が多そう】
 今年は、理由はよく分からないけど
 なんとなく機嫌よく過ごせる日が増えそうです。`
             },
             {
                 title: '選んだものが正解になる',
-                image: 'images/10.png',
+                image: 'images/10.jpg',
                 text: `【選んだものが正解になる】
 今年は、何気なく選んだものが
 あとから「これでよかったな」って思えることがありそう。`
@@ -494,7 +494,7 @@
             liff.sendMessages([
                 {
                     type: 'text',
-                    text: `私の今年の運勢：${currentFortuneTitle}`
+                    text: `今年の運勢：${currentFortuneTitle}`
                 }
             ]).then(() => {
                 alert('公式アカウントに送信しました！');
